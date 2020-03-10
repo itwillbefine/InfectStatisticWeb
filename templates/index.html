@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/main.css') }}">
+    <title>实时更新：新型冠状病毒肺炎疫情</title>
+</head>
+<body>
+    <div class="container">
+        <div class="left-group"></div>
+        <div class="mid-group">
+            <div class="title"><h3>某次疫情统计可视化</h3></div>
+            <div class="data">
+                <div class="div-big">
+                    <div class="box">
+                        <div class="div-small">
+                            <p>累计确诊</p>
+                            <h3 class="nowSp">456</h3>
+                            <p class="compare">昨日</p>
+                        </div>
+                        <div class="div-small"><p>累计确诊</p>
+                            <h3 class="nowSp">456</h3>
+                            <p class="compare">昨日</p>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="div-small"><p>累计确诊</p>
+                            <h3 class="nowSp">456</h3>
+                            <p class="compare">昨日</p>
+                        </div>
+                        <div class="div-small"><p>累计确诊</p>
+                            <h3 class="nowSp">456</h3>
+                            <p class="compare">昨日</p>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="div-small"><p>累计确诊</p>
+                            <h3 class="nowSp">456</h3>
+                            <p class="compare">昨日</p>
+                        </div>
+                        <div class="div-small"><p>累计确诊</p>
+                            <h3 class="nowSp">456</h3>
+                            <p class="compare">昨日</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab">
+                <button type="button" class="dataDemo" id="data_one">dataOne</button>
+                <button type="button" class="dataDemo" id="data_two">dataTwo</button>
+            </div>
+            <div id="echarts" class="map"></div>
+            <div></div>
+        </div>
+        <div class="right-group"></div>
+    </div>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat/dist/ecStat.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/dataTool.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/china.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/world.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/bmap.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static',filename='js/map.js') }}"></script>
+</body>

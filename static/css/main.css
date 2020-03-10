@@ -1,0 +1,49 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+.container{
+    position: absolute;
+    width: 100%;
+    display: flex;
+}
+.left-group, .right-group{
+    width: 25%;
+    text-align: center;
+}
+.mid-group{
+    flex: 1;
+    text-align: center;
+}
+.title {
+    margin: 10%;
+    text-align: center;
+}
+.data {
+    border:1px solid #000;
+    border-radius: .625rem;
+}
+.div-big {
+    display: flex;
+    margin: 5%;
+    text-align: center;
+}
+.box{
+    flex:1;
+    text-align: center;
+}
+.div-small {
+    padding: 10%;
+    text-align: center;
+}
+.nowSp {
+    margin: 10%;
+    font-size: large;
+    color: chocolate;
+}
+.compare {
+    font-size: small;
+}
+.map {
+    height: 500px;
+}
