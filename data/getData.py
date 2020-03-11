@@ -112,4 +112,30 @@ def update_history():
         close_conn(conn, cursor)
 
 
-insert_history()
+def update_details():
+    cursor = None
+    conn = None
+    try:
+        li = get_data()[1]  # 0是历史数据字典，1是最新详细数据
+        conn, cursor = get_conn()
+        sql = "insert into details(update_time, province, city, confirm, confirm_add, heal, dead) " \
+              "values(%s, %s, %s, %s, %s, %s, %s)"
+        sql_query = 'select %s=(select update_time from details order by id desc limit 1)'  # 对比当前最大时间戳
+        cursor.execute(sql_query, li[0][0])
+        if not cursor.fetchone()[0]:
+            print(f"{time.asctime()}开始更新数据")
+            for item in li:
+                cursor.execute(sql, item)
+            conn.commit()
+            print(f"{time.asctime()}更新最新数据完毕")
+        else:
+            print(f"{time.asctime()}已是最新数据")
+    except:
+        traceback.print_exc()
+    finally:
+        close_conn(conn, cursor)
+
+
+#insert_history()#爬取历史数据
+#update_history()#后续爬取历史数据更新
+#update_details()#爬取具体数据
