@@ -168,9 +168,9 @@ if (option && typeof option === "object") {
     myChart.setOption(option, true);
 
 }
-/*myChart.on("click",function(e) {
+myChart.on("click",function(e) {
     //console.log(e);
-    location.href = 'province.html';
+    location.href = 'province';
     window.localStorage.setItem('provinceName',JSON.stringify(e.name));
     window.open(e.data.url,_self);
-})*/
+})

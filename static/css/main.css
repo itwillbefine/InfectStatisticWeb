@@ -54,25 +54,13 @@ input[type=radio] {
     display: none;
 }
 #tab-1:checked ~ .tab label:nth-child(1),
-#tab-2:checked ~ .tab label:nth-child(2),
-#tab-3:checked ~ .tab label:nth-child(3),
-#tab-4:checked ~ .tab label:nth-child(4) {
+#tab-2:checked ~ .tab label:nth-child(2){
     background-color: rgba(0, 0, 0, 0.2);
     box-shadow: none;
 }
-.content > div {
-    display: none;
-}
 #tab-1:checked ~ .content div:nth-child(1),
-#tab-2:checked ~ .content div:nth-child(2),
-#tab-3:checked ~ .content div:nth-child(3),
-#tab-4:checked ~ .content div:nth-child(4) {
+#tab-2:checked ~ .content div:nth-child(2){
     display: block;
-}
-.main {
-    margin: 0 auto;
-    max-width: 800px;
-    border: 1px solid rgba(0, 0, 0, 0.2);
 }
 .tab {
     overflow: hidden;
