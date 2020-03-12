@@ -1,8 +1,25 @@
-var dom = document.getElementById("echarts");
-var myChart = echarts.init(dom);
+var china = document.getElementById("echarts");
+var china_chart = echarts.init(china);
+
+var data= JSON.parse(window.localStorage.getItem('chinadata'));
+var con_list= [];
+var now_list= [];
+
+for(var i=0;i<data["data"].length;i++){
+    var temp={
+        "name":data["data"][i]["name"],
+        "value":data["data"][i]["con_value"]
+    }
+    var temp2={
+        "name":data["data"][i]["name"],
+        "value":data["data"][i]["now_value"]
+    }
+    con_list.push(temp);
+    now_list.push(temp2);
+}
+
 var app = {};
-option = null;
-option = {
+var option = {
   title: {
     text: '中国疫情图',
     left: 'center'
@@ -26,18 +43,6 @@ visualMap: {
     ],
     color: ['#E0022B', '#E09107', '#A3E00B']
 },
-toolbox: {
-    show: true,
-    orient: 'vertical',
-    left: 'right',
-    top: 'center',
-    feature: {
-        mark: {show: true},
-        dataView: {show: true, readOnly: false},
-        restore: {show: true},
-        saveAsImage: {show: true}
-    }
-},
 roamController: {
     show: true,
     left: 'right',
@@ -47,6 +52,7 @@ roamController: {
 },
 series: [
     {
+        showLegendSymbol: false,
         name: '确诊数',
         type: 'map',
         mapType: 'china',
@@ -56,124 +62,29 @@ series: [
             show: true,
             color: 'rgb(249, 249, 249)'
         },
-        data: [
-           {
-              name: '北京',
-              value: 181
-            }, {
-              name: '天津',
-              value: 45
-            }, {
-              name: '上海',
-              value: 65
-            }, {
-              name: '重庆',
-              value: 221
-            }, {
-              name: '河北',
-              value: 64
-            }, {
-              name: '河南',
-              value: 262
-            }, {
-              name: '云南',
-              value: 43
-            }, {
-              name: '辽宁',
-              value: 37
-            }, {
-              name: '黑龙江',
-              value: 227
-            }, {
-              name: '湖南',
-              value: 255
-            }, {
-              name: '安徽',
-              value: 270
-            }, {
-              name: '山东',
-              value: 401
-            }, {
-              name: '新疆',
-              value: 44
-            }, {
-              name: '江苏',
-              value: 173
-            }, {
-              name: '浙江',
-              value: 410
-            }, {
-              name: '江西',
-              value: 251
-            }, {
-              name: '湖北',
-              value: 43334
-            }, {
-              name: '广西',
-              value: 116
-            }, {
-              name: '甘肃',
-              value: 9
-            }, {
-              name: '山西',
-              value: 39
-            }, {
-              name: '内蒙古',
-              value: 41
-            }, {
-              name: '陕西',
-              value: 66
-            }, {
-              name: '吉林',
-              value: 31
-            }, {
-              name: '福建',
-              value: 97
-            }, {
-              name: '贵州',
-              value: 41
-            }, {
-              name: '广东',
-              value: 534
-            }, {
-              name: '青海',
-              value: 0
-            }, {
-              name: '西藏',
-              value: 0
-            }, {
-              name: '四川',
-              value: 242
-            }, {
-              name: '宁夏',
-              value: 10
-            }, {
-              name: '海南',
-              value: 41
-            }, {
-              name: '台湾',
-              value: 25
-            }, {
-              name: '香港',
-              value: 60
-            }, {
-              name: '澳门',
-              value: 4
-            }
-        ]
+        data:con_list
     }
 ]
 };;
-if (option && typeof option === "object") {
-    myChart.setOption(option, true);
 
+china_chart.setOption(option, true);
+
+function change_to_now() {
+    option.series[0].data=now_list;
+    china_chart.setOption(option, true);
 }
-myChart.on("click",function(e) {
+
+function change_to_con() {
+    option.series[0].data=con_list;
+    china_chart.setOption(option, true);
+}
+
+china_chart.on("click",function(e) {
     //console.log(e);
     $.ajax({
         type: 'POST',
         url: "/postdata",
-        data: JSON.stringify(e.name),//{"2.1":134,"2.2":522},
+        data: JSON.stringify({"2.1":134,"2.2":522}),//{"2.1":134,"2.2":522},
         contentType: 'application/json; charset=UTF-8',
         dataType: 'json',
         success: function(data) {

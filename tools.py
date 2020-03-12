@@ -7,8 +7,8 @@ import pypinyin
 def get_conn():
     conn = pymysql.connect(host="localhost",
                            user="root",
-                           password="misswang",
-                           db="cov",
+                           password="12345678",
+                           db="a",
                            charset="utf8"
                            )
     cursor = conn.cursor()
@@ -35,6 +35,12 @@ def get_data():
     res = query(sql)
     return res[0], res[1]
 
+def get_con_data():
+    sql = "select province,sum(confirm),sum(heal),sum(dead) from details " \
+          "where update_time=(select update_time from details " \
+          "order by update_time desc limit 1) group by province"
+    res = query(sql)
+    return res
 
 def get_province_data(province_name):
     province_name = change_to_pinyin(province_name)
@@ -58,4 +64,6 @@ def change_to_pinyin(word):
 
 
 if __name__ == '__main__':
-    print(hp("北京"))
+    res = get_con_data()
+    print(res)
+    #print(hp("北京"))

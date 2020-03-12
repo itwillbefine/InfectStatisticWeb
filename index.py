@@ -4,6 +4,7 @@ from flask import render_template
 from flask import jsonify
 from datetime import timedelta
 import tools
+
 import json
 
 app = Flask(__name__)
@@ -29,13 +30,21 @@ def get_data():
                     "now_severe_add": data_new[10]-data_old[10]})
 
 
-@app.route('/postdata', methods=['GET', 'POST'])
+@app.route('/get_con_data')
+def get_con_data():
+    res = []
+    for tup in tools.get_con_data():
+        print(tup)
+        now = int(tup[1])-int(tup[2])-int(tup[3])
+        res.append({"name": tup[0], "con_value": int(tup[1]), "now_value": int(now)})
+    return jsonify({"data": res})
+
+
+@app.route('/postdata', methods=['POST'])
 def postdata():
     if request.method == "POST":
         json_data = request.get_json()
         return jsonify(json_data)
-    if request.method == "GET":
-        return jsonify()
 
 
 @app.route('/province')

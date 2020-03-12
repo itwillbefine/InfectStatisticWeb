@@ -1,5 +1,5 @@
-var dom = document.getElementById("echarts");
-var myChart = echarts.init(dom);
+var province = document.getElementById("echarts");
+var myChart = echarts.init(province);
 var app = {};
 option = null;
 
@@ -9,7 +9,7 @@ var datavalue= [];//存放value
 
 for (var a in data) {
     datakey.push(a);
-    datavalue.push(test[a]);
+    datavalue.push(data[a]);
 };
 /*
 data = [

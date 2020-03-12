@@ -46,11 +46,11 @@
                 </div>
             </div>
             <div class="radio">
-                <input type="radio" id="tab-1" name="show" checked/>
-                <input type="radio" id="tab-2" name="show" />
+                <input type="radio" id="tab-1" name="show" onclick="change_to_con()" checked/>
+                <input type="radio" id="tab-2" name="show" onclick="change_to_now()"/>
                 <div class="tab">
-                    <label for="tab-1">Tab 1</label>
-                    <label for="tab-2">Tab 2</label>
+                    <label for="tab-1">累计确诊</label>
+                    <label for="tab-2" >现存确诊</label>
                 </div>
             </div>
             <div id="echarts" class="map"></div>
@@ -58,8 +58,7 @@
         </div>
         <div class="right-group"></div>
     </div>
-    <script type="text/javascript" src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
-
+    <script type="text/javascript" src="{{ url_for('static',filename='js/controller.js') }}"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat/dist/ecStat.min.js"></script>

@@ -61,8 +61,8 @@ def get_data():
 def get_conn():
     conn = pymysql.connect(host="localhost",
                            user="root",
-                           password="misswang",
-                           db="cov",
+                           password="12345678",
+                           db="a",
                            charset="utf8"
                            )
     cursor = conn.cursor()
