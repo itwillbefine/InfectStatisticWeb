@@ -24,7 +24,10 @@ def get_data():
         suspect = i["suspect"]
         heal = i["heal"]
         dead = i["dead"]
-        history[ds] = {"confirm": confirm, "suspect": suspect, "heal": heal, "dead": dead}
+        now_confirm = i["nowConfirm"]
+        now_severe = i["nowSevere"]
+        history[ds] = {"confirm": confirm, "suspect": suspect, "heal": heal, "dead": dead, "now_confirm": now_confirm,
+                       "now_severe": now_severe}
     for i in data_all["chinaDayAddList"]:
         ds = "2020." + i["date"]
         tup = time.strptime(ds, "%Y.%m.%d")
@@ -51,6 +54,7 @@ def get_data():
             heal = city_infos["total"]["heal"]
             dead = city_infos["total"]["dead"]
             details.append([update_time, province, city, confirm, confirm_add, heal, dead])
+    print(history)
     return history, details
 
 
@@ -79,11 +83,11 @@ def insert_history():
         dic = get_data()[0]  # 0是历史数据字典，1是最新详细数据
         print(f"{time.asctime()}开始插入数据")
         conn, cursor = get_conn()
-        sql = "insert into history values(%s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        sql = "insert into history values(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
         for k, v in dic.items():
             cursor.execute(sql, [k, v.get("confirm"), v.get("confirm_add"), v.get("suspect"),
-                                 v.get("suspect_add"), v. get("heal"), v.get("heal_add"),
-                                 v.get("dead"), v.get("dead_add")])
+                                 v.get("suspect_add"), v. get("heal"), v.get("heal_add"), v.get("dead"),
+                                 v.get("dead_add"), v.get("now_confirm"),v.get("now_severe")])
         conn.commit()
         print(f"{time.asctime()}插入历史数据完毕")
     except:
@@ -99,11 +103,11 @@ def update_history():
         dic = get_data()[0]  # 0是历史数据字典，1是最新详细数据
         print(f"{time.asctime()}开始插入数据")
         conn, cursor = get_conn()
-        sql = "insert into history values(%s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        sql = "insert into history values(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
         for k, v in dic.items():
             cursor.execute(sql, [k, v.get("confirm"), v.get("confirm_add"), v.get("suspect"),
-                                 v.get("suspect_add"), v.get("heal"), v.get("heal_add"),
-                                 v.get("dead"), v.get("dead.add")])
+                                 v.get("suspect_add"), v. get("heal"), v.get("heal_add"), v.get("dead"),
+                                 v.get("dead_add"), v.get("now_confirm"), v.get("now_severe")])
         conn.commit()
         print(f"{time.asctime()}插入历史数据完毕")
     except:
@@ -136,6 +140,6 @@ def update_details():
         close_conn(conn, cursor)
 
 
-#insert_history()#爬取历史数据
+insert_history()#爬取历史数据
 #update_history()#后续爬取历史数据更新
 #update_details()#爬取具体数据

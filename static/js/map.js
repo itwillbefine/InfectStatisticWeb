@@ -170,7 +170,7 @@ if (option && typeof option === "object") {
 }
 myChart.on("click",function(e) {
     //console.log(e);
-    location.href = 'province';
-    window.localStorage.setItem('provinceName',JSON.stringify(e.name));
-    window.open(e.data.url,_self);
+    location.href = 'province';    //跳转的地址
+    window.localStorage.setItem('provinceName',JSON.stringify(e.name));   //省份的名字
+    window.open(e.data.url,self);
 })
