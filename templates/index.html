@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{{ url_for('static',filename='css/main.css') }}">
     <title>实时更新：新型冠状病毒肺炎疫情</title>
+    <script src="../static/js/jquery-1.11.1.js"></script>
 </head>
 <body>
     <div class="container">
@@ -13,34 +14,33 @@
             <div class="data">
                 <div class="div-big">
                     <div class="box">
-                        <div class="div-small">
-                            <p>累计确诊</p>
+                        <div class="div-small"><p>现有确诊</p>
                             <h3 class="nowSp">456</h3>
-                            <p class="compare">昨日</p>
+                            <p class="compare">昨日<span>1</span></p>
                         </div>
                         <div class="div-small"><p>累计确诊</p>
                             <h3 class="nowSp">456</h3>
-                            <p class="compare">昨日</p>
-                        </div>
-                    </div>
-                    <div class="box">
-                        <div class="div-small"><p>累计确诊</p>
-                            <h3 class="nowSp">456</h3>
-                            <p class="compare">昨日</p>
-                        </div>
-                        <div class="div-small"><p>累计确诊</p>
-                            <h3 class="nowSp">456</h3>
-                            <p class="compare">昨日</p>
+                            <p class="compare">昨日<span>1</span></p>
                         </div>
                     </div>
                     <div class="box">
-                        <div class="div-small"><p>累计确诊</p>
+                        <div class="div-small"><p>现有疑似</p>
                             <h3 class="nowSp">456</h3>
-                            <p class="compare">昨日</p>
+                            <p class="compare">昨日<span>1</span></p>
                         </div>
-                        <div class="div-small"><p>累计确诊</p>
+                        <div class="div-small"><p>累计治愈</p>
                             <h3 class="nowSp">456</h3>
-                            <p class="compare">昨日</p>
+                            <p class="compare">昨日<span>1</span></p>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="div-small"><p>现有重症</p>
+                            <h3 class="nowSp">456</h3>
+                            <p class="compare">昨日<span>1</span></p>
+                        </div>
+                        <div class="div-small"><p>累计死亡</p>
+                            <h3 class="nowSp">456</h3>
+                            <p class="compare">昨日<span>1</span></p>
                         </div>
                     </div>
                 </div>
@@ -58,7 +58,32 @@
         </div>
         <div class="right-group"></div>
     </div>
+    <script>
+        function get_data() {
+            $.ajax({
+                url:"/data",
+                success:function (data) {
+                    $(".div-small h3").eq(0).text(data.now_confirm);
+                    $(".div-small span").eq(0).text(data.now_confirm_add);
+                    $(".div-small h3").eq(1).text(data.confirm);
+                    $(".div-small span").eq(1).text(data.confirm_add);
+                    $(".div-small h3").eq(2).text(data.suspect);
+                    $(".div-small span").eq(2).text(data.suspect_add);
+                    $(".div-small h3").eq(3).text(data.cure);
+                    $(".div-small span").eq(3).text(data.cure_add);
+                    $(".div-small h3").eq(4).text(data.now_severe);
+                    $(".div-small span").eq(4).text(data.now_severe_add);
+                    $(".div-small h3").eq(5).text(data.dead);
+                    $(".div-small span").eq(5).text(data.dead_add);
+                },
+                error:function (xhr, type, errorThrown) {
 
+                }
+
+            })
+        }
+        setInterval(get_data,1000)
+    </script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat/dist/ecStat.min.js"></script>
