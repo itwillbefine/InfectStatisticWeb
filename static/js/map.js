@@ -170,7 +170,17 @@ if (option && typeof option === "object") {
 }
 myChart.on("click",function(e) {
     //console.log(e);
+    $.ajax({
+        type: 'POST',
+        url: "/postdata",
+        data: JSON.stringify(e.name),//{"2.1":134,"2.2":522},
+        contentType: 'application/json; charset=UTF-8',
+        dataType: 'json',
+        success: function(data) {
+            window.localStorage.setItem('initdata',JSON.stringify(data));
+        },
+        error: function(xhr, type) {
+        }
+    });
     location.href = 'province';
-    window.localStorage.setItem('provinceName',JSON.stringify(e.name));
-    window.open(e.data.url,_self);
 })
