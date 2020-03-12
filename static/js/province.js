@@ -52,7 +52,7 @@ option = {
         showSymbol: false,
         data: datavalue
     }]
-};;
+};
 if (option && typeof option === "object") {
     myChart.setOption(option, true);
 }
