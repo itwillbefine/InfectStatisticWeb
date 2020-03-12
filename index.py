@@ -4,6 +4,7 @@ from flask import render_template
 from flask import jsonify
 from datetime import timedelta
 import tools
+import json
 
 app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = timedelta(seconds=1)
@@ -26,6 +27,15 @@ def get_data():
                     "dead": data_new[7], "dead_add": data_new[8], "now_confirm": data_new[9],
                     "now_confirm_add": data_new[9]-data_old[9], "now_severe": data_new[10],
                     "now_severe_add": data_new[10]-data_old[10]})
+
+
+@app.route('/postdata', methods=['GET', 'POST'])
+def postdata():
+    if request.method == "POST":
+        json_data = request.get_json()
+        return jsonify(json_data)
+    if request.method == "GET":
+        return jsonify()
 
 
 @app.route('/province')
