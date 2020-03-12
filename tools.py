@@ -1,4 +1,7 @@
 import pymysql
+import json
+import requests
+import pypinyin
 
 
 def get_conn():
@@ -33,6 +36,26 @@ def get_data():
     return res[0], res[1]
 
 
+def get_province_data(province_name):
+    province_name = change_to_pinyin(province_name)
+    url = 'https://gwpre.sina.cn/interface/news/wap/historydata.d.json?province=' + province_name
+    headers = {
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) '
+                      'Chrome/63.0.3239.132 Safari/537.36',
+    }
+    res = requests.get(url, headers)
+    data_all = json.loads(res.text)
+    data = data_all["data"]
+    history_list = data["historylist"]
+    print(history_list)
+
+
+def change_to_pinyin(word):
+    province_name = ''
+    for i in pypinyin.pinyin(word, style=pypinyin.NORMAL):
+        province_name += ''.join(i)
+    return province_name
+
+
 if __name__ == '__main__':
-    res = get_data()
-    print(res[1])
+    print(hp("北京"))
