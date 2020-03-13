@@ -4,12 +4,17 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{{ url_for('static',filename='css/province.css') }}">
     <title>实时更新：新型冠状病毒肺炎疫情</title>
+    <script src="../static/js/jquery-1.11.1.js"></script>
+        <script src="../static/js/controller.js"></script>
 </head>
 <body>
     <div class="container">
         <div class="left-group"></div>
         <div class="mid-group">
-            <div class="title"><h3>某次疫情统计可视化</h3></div>
+            <div class="title">
+                <h3>某次疫情统计可视化</h3>
+                <p>省份</p>
+            </div>
             <div class="data">
                 <div class="divLeft">
                     <h4>现有确诊</h4>
@@ -29,6 +34,17 @@
                 </div>
             </div>
             <div id="echarts" class="echarts"></div>
+            <div class="radio">
+                <input type="radio" id="tab-1" name="show" onclick="change_to_sum()" checked/>
+                <input type="radio" id="tab-2" name="show" onclick="change_to_procon()"/>
+                <input type="radio" id="tab-3" name="show" onclick="change_to_cure_dead()"/>
+                <div class="tab">
+                    <label for="tab-1">新增确诊趋势</label>
+                    <label for="tab-2">累计确诊趋势</label>
+                    <label for="tab-3">累计治愈/死亡</label>
+                    <div class="back"><a href="/" class="myButton">返回全国</a></div>
+                </div>
+            </div>
         </div>
         <div class="right-group"></div>
     </div>
