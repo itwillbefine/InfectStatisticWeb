@@ -1,25 +1,23 @@
 var china = document.getElementById("echarts");
 var china_chart = echarts.init(china);
 
-var data= JSON.parse(window.localStorage.getItem('chinadata'));
-var con_list= [];
-var now_list= [];
-
+var data = JSON.parse(window.localStorage.getItem('chinadata'));
+var ccon_list = [];
+var cnow_list = [];
 for(var i=0;i<data["data"].length;i++){
-    var temp={
+    var temp = {
         "name":data["data"][i]["name"],
         "value":data["data"][i]["con_value"]
     }
-    var temp2={
+    var temp2 = {
         "name":data["data"][i]["name"],
         "value":data["data"][i]["now_value"]
     }
-    con_list.push(temp);
-    now_list.push(temp2);
+    ccon_list.push(temp);
+    cnow_list.push(temp2);
 }
-
 var app = {};
-var option = {
+var china_option = {
   title: {
     text: '中国疫情图',
     left: 'center'
@@ -62,23 +60,21 @@ series: [
             show: true,
             color: 'rgb(249, 249, 249)'
         },
-        data:con_list
+        data:ccon_list
     }
 ]
 };;
-
-china_chart.setOption(option, true);
-
+china_chart.setOption(china_option, true);
 china_chart.on("click",function(e) {
     $.ajax({
         type:"POST",
-        url: "/postdata",
+        url: "/post_data",
         data: JSON.stringify(e.name),
         contentType: 'application/json; charset=UTF-8',
         dataType: 'json',
         success: function(data) {
             localStorage.clear();
-            console.log(data);
+//            console.log(data);
             window.localStorage.setItem('initdata',JSON.stringify(data));
             location.href = 'province?index='+e.name;
         },

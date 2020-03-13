@@ -3,9 +3,8 @@ from flask import request
 from flask import render_template
 from flask import jsonify
 from datetime import timedelta
+import datetime
 import tools
-
-import json
 
 app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = timedelta(seconds=1)
@@ -18,6 +17,7 @@ def index():
     return render_template('index.html')
 
 
+# 获得全国静态数据
 @app.route('/data')
 def get_data():
     data = tools.get_data()
@@ -30,6 +30,14 @@ def get_data():
                     "now_severe_add": data_new[10]-data_old[10]})
 
 
+# 获得全国趋势数据
+@app.route('/get_line_data')
+def get_line_data():
+    data = tools.get_china_data()
+    return jsonify({"line_data": data})
+
+
+# 获得全国地图数据
 @app.route('/get_con_data')
 def get_con_data():
     res = []
@@ -39,12 +47,18 @@ def get_con_data():
     return jsonify({"data": res})
 
 
-@app.route('/postdata', methods=['POST'])
-def postdata():
+# 获得全球地图数据
+@app.route('/get_world_data')
+def get_world_data():
+    return jsonify(tools.get_foreign_data())
+
+
+# 获得省份数据
+@app.route('/post_data', methods=['POST'])
+def post_data():
     province_name = request.get_json()
     res = tools.get_province_data(province_name)
     return jsonify({"data": res})
-
 
 
 @app.route('/province')

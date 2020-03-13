@@ -9,14 +9,14 @@ var latest_data=province_data["data"][0];
 var date_list_add=[];//新增用日期
 var date_list=[];//累计用日期
 var con_list=[];//累计确诊
-var sum_list=[];//新增确诊
+var new_list=[];//新增确诊
 var cure_list=[];//治愈
 var dead_list=[];//死亡
 
 for(var i=province_data["data"].length-1;i>=0;i--){
     if (i<=province_data["data"].length-2) {
             date_list_add.push(province_data["data"][i]["date"]);
-            sum_list.push(province_data["data"][i]["conNum"]-province_data["data"][i+1]["conNum"]);
+            new_list.push(province_data["data"][i]["conNum"]-province_data["data"][i+1]["conNum"]);
     }
     if (province_data["data"][i]["deathNum"]=="") province_data["data"][i]["deathNum"]=0;
     if (province_data["data"][i]["cureNum"]=="") province_data["data"][i]["cureNum"]=0;
@@ -25,7 +25,6 @@ for(var i=province_data["data"].length-1;i>=0;i--){
     cure_list.push(province_data["data"][i]["cureNum"]);
     dead_list.push(province_data["data"][i]["deathNum"]);
 }
-
 //console.log(con_list);
 option = {
     visualMap: [{
@@ -37,7 +36,8 @@ option = {
     }],
     title: [{
         left: 'left',
-        text: '新增确诊趋势图'
+        text: '新增确诊趋势图',
+        subtext: '数据来源新浪',
     }],
     color:['#FF0000','#A52A2A','#00FF7F','#000000'],
     legend: {
@@ -68,7 +68,7 @@ option = {
         type: 'line',
 
         showSymbol: false,
-        data: sum_list
+        data: new_list
     },
     {
         showLegendSymbol: false,

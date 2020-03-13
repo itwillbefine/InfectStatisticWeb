@@ -5,7 +5,6 @@
     <link rel="stylesheet" href="{{ url_for('static',filename='css/main.css') }}">
     <title>某次疫情统计可视化</title>
     <script src="../static/js/jquery-1.11.1.js"></script>
-    <script src="../static/js/controller.js"></script>
 </head>
 <body>
     <div class="container">
@@ -58,8 +57,16 @@
                 </div>
             </div>
             <div id="echarts" class="map"></div>
-            <div id="line" class="map"></div>
-            <div></div>
+            <div class="radio">
+                <input type="radio" id="tab-3" name="show_world" onclick="change_to_wcon()" checked/>
+                <input type="radio" id="tab-4" name="show_world" onclick="change_to_wnow()"/>
+                <div class="world_tab">
+                    <label for="tab-3">累计确诊</label>
+                    <label for="tab-4" >现存确诊</label>
+                </div>
+            </div>
+            <div id="world" class="world_map"></div>
+            <div id="line" class="line"></div>
         </div>
         <div class="right-group"></div>
     </div>
@@ -71,6 +78,8 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/china.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/world.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/bmap.min.js"></script>
-    <script type="text/javascript" src="{{ url_for('static',filename='js/map.js') }}"></script>
+    <script type="text/javascript" src="../static/js/map.js"></script>
+    <script type="text/javascript" src="../static/js/worldmap.js"></script>
     <script type="text/javascript" src="../static/js/linechart.js"></script>
+    <script src="../static/js/controller.js"></script>
 </body>

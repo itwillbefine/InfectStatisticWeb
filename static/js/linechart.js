@@ -1,90 +1,75 @@
-var dom = document.getElementById("line");
-var myChart = echarts.init(dom);
+var province = document.getElementById("line");
+var line_chart = echarts.init(province);
 var app = {};
-option = null;
 
+var line_data=JSON.parse(window.localStorage.getItem('line_data'));
+//console.log(line_data);
+//c=GMT_to_str(line_data["line_data"][0][0]);
+//console.log(c);
+var date_list_add=[];//新增用日期
+var con_list=[];//累计确诊
+var cure_list=[];//治愈
+var dead_list=[];//死亡
 
-option = {
-
-    tooltip: {
-        trigger: '全国累计趋势',
-        axisPointer: {
-            type: 'cross'
-        }
-    },
-    legend: {
-        data:['累计确诊', '现有疑似', '累计治愈', '累计死亡']
-    },
-    grid: {
-        top: 70,
-        bottom: 50
-    },
-    xAxis: [
-        {
-            type: 'category',
-            axisTick: {
-                alignWithLabel: true
-            },
-            axisLine: {
-                onZero: false,
-                lineStyle: {
-                    color: colors[1]
-                }
-            },
-            axisPointer: {
-                label: {
-                    formatter: function (params) {
-                        return '降水量  ' + params.value
-                            + (params.seriesData.length ? '：' + params.seriesData[0].data : '');
-                    }
-                }
-            },
-            data: ['2016-1', '2016-2', '2016-3', '2016-4', '2016-5', '2016-6', '2016-7', '2016-8', '2016-9', '2016-10', '2016-11', '2016-12']
-        },
-        {
-            type: 'category',
-            axisTick: {
-                alignWithLabel: true
-            },
-            axisLine: {
-                onZero: false,
-                lineStyle: {
-                    color: colors[0]
-                }
-            },
-            axisPointer: {
-                label: {
-                    formatter: function (params) {
-                        return '降水量  ' + params.value
-                            + (params.seriesData.length ? '：' + params.seriesData[0].data : '');
-                    }
-                }
-            },
-            data: ['2015-1', '2015-2', '2015-3', '2015-4', '2015-5', '2015-6', '2015-7', '2015-8', '2015-9', '2015-10', '2015-11', '2015-12']
-        }
-    ],
-    yAxis: [
-        {
-            type: 'value'
-        }
-    ],
-    series: [
-        {
-            name: '2015 降水量',
-            type: 'line',
-            xAxisIndex: 1,
-            smooth: true,
-            data: [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3]
-        },
-        {
-            name: '2016 降水量',
-            type: 'line',
-            smooth: true,
-            data: [3.9, 5.9, 11.1, 18.7, 48.3, 69.2, 231.6, 46.6, 55.4, 18.4, 10.3, 0.7]
-        }
-    ]
-};
-;
-if (option && typeof option === "object") {
-    myChart.setOption(option, true);
+for(var i=0;i<line_data["line_data"].length;i++){
+    if (line_data["line_data"][i][7]=="") line_data["line_data"][i][7]=0;
+    if (line_data["line_data"][i][5]=="") line_data["line_data"][i][5]=0;
+    date_list_add.push(GMT_to_str(line_data["line_data"][i][0]));
+    con_list.push(line_data["line_data"][i][1]);
+    cure_list.push(line_data["line_data"][i][5]);
+    dead_list.push(line_data["line_data"][i][7]);
 }
+var line_option = {
+    visualMap: [{
+        show: false,
+        type: 'continuous',
+        seriesIndex: 0,
+        min: 0,
+        max: 400
+    }],
+    title: [{
+        left: 'left',
+        text: '全国 累计确诊/治愈/死亡 趋势图'
+    }],
+    color:['#FF0000','#00FF7F','#000000'],
+    legend: {
+        show:true,
+        left:'right',
+        data: ['累计确诊', '累计治愈', '累计死亡'],
+    },
+    tooltip: {
+        trigger: 'axis'
+    },
+    xAxis: [{
+        data: date_list_add
+    }],
+    yAxis: [{
+        splitLine: {show: false}
+    }],
+    grid: [{
+        bottom: '10%'
+    }],
+    series: [{
+        showLegendSymbol: false,
+        name:'累计确诊',
+        type: 'line',
+        showSymbol: false,
+        data: con_list
+    },
+    {
+        showLegendSymbol: false,
+        name:'累计治愈',
+        type: 'line',
+        showSymbol: false,
+        data: cure_list
+    },
+    {
+        showLegendSymbol: false,
+        name:'累计死亡',
+        type: 'line',
+        showSymbol: false,
+        data: dead_list
+    }
+    ]
+};;
+line_chart.setOption(line_option, true);

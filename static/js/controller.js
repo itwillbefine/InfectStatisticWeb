@@ -19,7 +19,7 @@ function get_data() {
         }
     })
 }
-get_data();
+
 function get_con_data() {
     $.ajax({
         url:"/get_con_data",
@@ -30,25 +30,62 @@ function get_con_data() {
         }
     })
 }
-get_con_data();
 
-function getUrlParam(name) {
+function get_world_data() {
+    $.ajax({
+        url:"/get_world_data",
+        success:function (data) {
+           window.localStorage.setItem('worlddata',JSON.stringify(data));
+        },
+        error:function (xhr, type, errorThrown) {
+        }
+    })
+}
+
+function get_line_data() {
+    $.ajax({
+        url:"/get_line_data",
+        success:function (data) {
+           window.localStorage.setItem('line_data',JSON.stringify(data));
+        },
+        error:function (xhr, type, errorThrown) {
+        }
+    })
+}
+
+function GMT_to_str(time){
+    let date = new Date(time);
+    let str=(date.getMonth()+1)+'.'+date.getDate();
+    return str;
+}
+
+function get_url_param(name) {
       var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-      var paramName = window.location.search.substr(1).match(reg);
-      if(paramName != null){
-          return decodeURIComponent(paramName[2]); //decodeURIComponent 处理中文乱码
+      var param_name = window.location.search.substr(1).match(reg);
+      if(param_name != null){
+          return decodeURIComponent(param_name[2]); //decodeURIComponent 处理中文乱码
       }
       return null;
 }
 
 function change_to_now() {
-    option.series[0].data=now_list;
-    china_chart.setOption(option, true);
+    china_option.series[0].data=cnow_list;
+    china_chart.setOption(china_option, true);
 }
 
 function change_to_con() {
-    option.series[0].data=con_list;
-    china_chart.setOption(option, true);
+    china_option.series[0].data=ccon_list;
+    china_chart.setOption(china_option, true);
+}
+
+function change_to_wnow() {
+    world_option.series[0].data=wnow_list;
+    world_chart.setOption(world_option, true);
+}
+
+function change_to_wcon() {
+    world_option.series[0].data=wcon_list;
+    world_chart.setOption(world_option, true);
 }
 
 function init_province() {
@@ -56,7 +93,7 @@ function init_province() {
     $(".divLeft h3").eq(1).text(latest_data.conNum);
     $(".divLeft h3").eq(2).text(latest_data.cureNum);
     $(".divLeft h3").eq(3).text(latest_data.deathNum);
-    $(".title p").text(getUrlParam('index'));
+    $(".title p").text(get_url_param('index'));
 }
 
 function change_to_procon() {
@@ -80,4 +117,8 @@ function change_to_cure_dead() {
     pro_chart.setOption(option, true);
 }
 
+get_data();
+get_con_data();
+get_world_data();
+get_line_data();
 //setInterval(get_data,1000)
