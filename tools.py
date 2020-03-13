@@ -63,7 +63,30 @@ def change_to_pinyin(word):
     return province_name
 
 
+def get_foreign_data():
+    url = "https://view.inews.qq.com/g2/getOnsInfo?name=disease_other"
+    res = requests.get(url)
+    d = json.loads(res.text)
+    data_all = json.loads(d["data"])
+    foreign_list = {}
+    data_foreign = data_all["foreignList"]
+    for foreign_infos in data_foreign:
+        name = foreign_infos["name"]
+        confirm = foreign_infos["confirm"]
+        now_confirm = foreign_infos["nowConfirm"]
+        foreign_list[name] = {"confirm": confirm, "now_confirm": now_confirm}
+    url = "https://view.inews.qq.com/g2/getOnsInfo?name=disease_h5"
+    res = requests.get(url)
+    d = json.loads(res.text)
+    data_all = json.loads(d["data"])
+    confirm = data_all["chinaTotal"]["confirm"]
+    now_confirm = data_all["chinaTotal"]["nowConfirm"]
+    foreign_list['中国'] = {"confirm": confirm, "now_confirm": now_confirm}
+    return foreign_list
+
+
 if __name__ == '__main__':
+    print(get_foreign_data())
     res = get_province_data("福建")
    # res=get_data()
     print(res)
