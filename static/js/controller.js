@@ -61,18 +61,21 @@ function init_province() {
 
 function change_to_procon() {
     option.xAxis.data=date_list;
+    option.title={left: 'left',text: '累计确诊趋势图'};
     option.legend.selected ={'新增确诊':false,'累计确诊':true,'累计治愈':false,'累计死亡':false};
     pro_chart.setOption(option, true);
 }
 
 function change_to_sum() {
     option.xAxis.data=date_list_add;
+    option.title={left: 'left',text: '新增确诊趋势图'};
     option.legend.selected ={'新增确诊':true,'累计确诊':false,'累计治愈':false,'累计死亡':false};
     pro_chart.setOption(option, true);
 }
 
 function change_to_cure_dead() {
     option.xAxis.data=date_list;
+    option.title={left: 'left',text: '累计治愈/死亡趋势图'};
     option.legend.selected ={'新增确诊':false,'累计确诊':false,'累计治愈':true,'累计死亡':true};
     pro_chart.setOption(option, true);
 }
