@@ -34,7 +34,6 @@ def get_data():
 def get_con_data():
     res = []
     for tup in tools.get_con_data():
-        print(tup)
         now = int(tup[1])-int(tup[2])-int(tup[3])
         res.append({"name": tup[0], "con_value": int(tup[1]), "now_value": int(now)})
     return jsonify({"data": res})
@@ -42,9 +41,10 @@ def get_con_data():
 
 @app.route('/postdata', methods=['POST'])
 def postdata():
-    if request.method == "POST":
-        json_data = request.get_json()
-        return jsonify(json_data)
+    province_name = request.get_json()
+    res = tools.get_province_data(province_name)
+    return jsonify({"data": res})
+
 
 
 @app.route('/province')

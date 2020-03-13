@@ -53,7 +53,7 @@ def get_province_data(province_name):
     data_all = json.loads(res.text)
     data = data_all["data"]
     history_list = data["historylist"]
-    print(history_list)
+    return history_list
 
 
 def change_to_pinyin(word):
@@ -64,6 +64,7 @@ def change_to_pinyin(word):
 
 
 if __name__ == '__main__':
-    res = get_con_data()
+    res = get_province_data("福建")
+   # res=get_data()
     print(res)
     #print(hp("北京"))

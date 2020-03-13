@@ -140,6 +140,6 @@ def update_details():
         close_conn(conn, cursor)
 
 
-insert_history()#爬取历史数据
+#insert_history()#爬取历史数据
 #update_history()#后续爬取历史数据更新
 #update_details()#爬取具体数据

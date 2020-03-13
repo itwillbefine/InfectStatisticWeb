@@ -69,29 +69,20 @@ series: [
 
 china_chart.setOption(option, true);
 
-function change_to_now() {
-    option.series[0].data=now_list;
-    china_chart.setOption(option, true);
-}
-
-function change_to_con() {
-    option.series[0].data=con_list;
-    china_chart.setOption(option, true);
-}
-
 china_chart.on("click",function(e) {
-    //console.log(e);
     $.ajax({
-        type: 'POST',
+        type:"POST",
         url: "/postdata",
-        data: JSON.stringify({"2.1":134,"2.2":522}),//{"2.1":134,"2.2":522},
+        data: JSON.stringify(e.name),
         contentType: 'application/json; charset=UTF-8',
         dataType: 'json',
         success: function(data) {
+            localStorage.clear();
+            console.log(data);
             window.localStorage.setItem('initdata',JSON.stringify(data));
+            location.href = 'province?index='+e.name;
         },
         error: function(xhr, type) {
         }
     });
-    location.href = 'province';
 })
