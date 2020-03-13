@@ -54,7 +54,7 @@ def get_data():
             heal = city_infos["total"]["heal"]
             dead = city_infos["total"]["dead"]
             details.append([update_time, province, city, confirm, confirm_add, heal, dead])
-    print(history)
+    #print(history)
     return history, details
 
 
