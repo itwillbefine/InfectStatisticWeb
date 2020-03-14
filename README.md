@@ -2,6 +2,10 @@
 
 ##### 作业链接
 
+[作业描述链接](https://edu.cnblogs.com/campus/fzu/2020SpringW/homework/10456)
+
+[作业正文](https://www.cnblogs.com/wxy-2020/p/12492756.html)
+
 ##### 结对学号
 
 221701401 221701402
@@ -28,7 +32,11 @@
 
 3.构建所需的配置
 
-​	3.0 如果是在pycharm中要file->setting->Project:.....(项目名)->project:interpreter设置interpreter
+​	3.0 如果是在pycharm中要file->settings->Project:.....(项目名)->project:interpreter设置interpreter
+
+​		具体如下图（图为社区版）
+
+![社区版settings图](https://images.cnblogs.com/cnblogs_com/kokodayo/1640089/o_200314085900pycharm.png)
 
 ​	3.1 在Mysql中建一张名为cov的表，然后运行sqlData文件夹中的.sql文件，把表装入cov内。
 
