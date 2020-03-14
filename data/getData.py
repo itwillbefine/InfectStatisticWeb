@@ -104,12 +104,19 @@ def update_history():
         print(f"{time.asctime()}开始插入数据")
         conn, cursor = get_conn()
         sql = "insert into history values(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-        for k, v in dic.items():
-            cursor.execute(sql, [k, v.get("confirm"), v.get("confirm_add"), v.get("suspect"),
-                                 v.get("suspect_add"), v. get("heal"), v.get("heal_add"), v.get("dead"),
-                                 v.get("dead_add"), v.get("now_confirm"), v.get("now_severe")])
-        conn.commit()
-        print(f"{time.asctime()}插入历史数据完毕")
+        sql_query = 'select %s=(select ds from history order by ds desc limit 1)'  # 对比当前最大时间戳
+        for k in dic.keys():
+            cursor.execute(sql_query, k)
+        if not cursor.fetchone()[0]:
+            print(f"{time.asctime()}开始更新数据")
+            for k, v in dic.items():
+                cursor.execute(sql, [k, v.get("confirm"), v.get("confirm_add"), v.get("suspect"),
+                                     v.get("suspect_add"), v.get("heal"), v.get("heal_add"), v.get("dead"),
+                                     v.get("dead_add"), v.get("now_confirm"), v.get("now_severe")])
+            conn.commit()
+            print(f"{time.asctime()}更新最新数据完毕")
+        else:
+            print(f"{time.asctime()}已是最新数据")
     except:
         traceback.print_exc()
     finally:
@@ -140,6 +147,6 @@ def update_details():
         close_conn(conn, cursor)
 
 
-insert_history()#爬取历史数据
-#update_history()#后续爬取历史数据更新
-update_details()#爬取具体数据
+#insert_history()#爬取历史数据
+update_history()#后续爬取历史数据更新
+#update_details()#爬取具体数据

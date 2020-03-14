@@ -22,7 +22,7 @@ for(var i=0;i<world_data.length;i++){
 var world_option = {
     title: {
         text: '全球疫情分布',
-        subtext: '数据来源腾讯,有的数据名字不对应所以显示不出来',
+        subtext: '数据来源腾讯',
         left: 'center'
     },
     tooltip: {
@@ -54,7 +54,7 @@ var world_option = {
     series: [
         {
             showLegendSymbol: false,
-            name: ' 确诊',
+            name: '确诊数',
             type: 'map',
             mapType: 'world',
             roam: false,
@@ -167,7 +167,7 @@ var world_option = {
             "Austria": "奥地利",
             "Mozambique": "莫桑比克",
             "Uganda": "乌干达",
-            "Japan": "日本",
+            "Japan": "日本本土",
             "Niger": "尼日尔",
             "Brazil": "巴西",
             "Kuwait": "科威特",

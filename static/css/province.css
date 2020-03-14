@@ -3,6 +3,7 @@
     padding: 0;
 }
 .container{
+    background-color:#10aeb5;
     position: absolute;
     width: 100%;
     display: flex;
@@ -12,15 +13,18 @@
     text-align: center;
 }
 .mid-group{
+    background:#fff;
     flex: 1;
     text-align: center;
+    border:1px solid #fff;
+    border-radius: .625rem;
 }
 .title {
     margin: 10%;
     text-align: center;
 }
 .data {
-    border:1px solid #000;
+    border:1px solid #B0C4DE;
     border-radius: .625rem;
 }
 .divLeft {
@@ -44,7 +48,7 @@ input[type=radio] {
 #tab-1:checked ~ .tab label:nth-child(1),
 #tab-2:checked ~ .tab label:nth-child(2),
 #tab-3:checked ~ .tab label:nth-child(3){
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: #DCDCDC;
     box-shadow: none;
 }
 #tab-1:checked ~ .content div:nth-child(1),

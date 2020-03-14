@@ -3,6 +3,7 @@
     padding: 0;
 }
 .container{
+    background-color:#10aeb5;
     position: absolute;
     width: 100%;
     display: flex;
@@ -12,15 +13,18 @@
     text-align: center;
 }
 .mid-group{
+    background:#fff;
     flex: 1;
     text-align: center;
+    border:1px solid #fff;
+    border-radius: .625rem;
 }
 .title {
     margin: 10%;
     text-align: center;
 }
 .data {
-    border:1px solid #000;
+    border:1px solid #B0C4DE;
     border-radius: .625rem;
 }
 .div-big {
@@ -40,6 +44,9 @@
     margin: 10%;
     font-size: large;
     color: chocolate;
+}
+.num {
+    color: #EE82EE;
 }
 .compare {
     font-size: small;
@@ -64,7 +71,7 @@ input[type=radio] {
 #tab-2:checked ~ .tab label:nth-child(2),
 #tab-3:checked ~ .world_tab label:nth-child(1),
 #tab-4:checked ~ .world_tab label:nth-child(2){
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: #DCDCDC;
     box-shadow: none;
 }
 .tab,.world_tab {
@@ -98,4 +105,9 @@ input[type=radio] {
     user-select: none;
     -webkit-user-select: none;
 }
+.part {
+    margin：10px;
+    text-align:left;
+}
+
 

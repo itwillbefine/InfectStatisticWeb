@@ -31,7 +31,7 @@ var line_option = {
         left: 'left',
         text: '全国 累计确诊/治愈/死亡 趋势图'
     }],
-    color:['#FF0000','#00FF7F','#000000'],
+    color:['#DC143C','#10aeb5','#000000'],
     legend: {
         show:true,
         left:'right',
