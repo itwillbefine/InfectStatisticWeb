@@ -70,8 +70,6 @@ def change_to_pinyin(word):
     return province_name
 
 
-
-
 def get_foreign_data():
     url = "https://view.inews.qq.com/g2/getOnsInfo?name=disease_other"
     res = requests.get(url)
