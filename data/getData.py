@@ -3,7 +3,7 @@ import json
 import time
 import pymysql
 import traceback
-
+import datetime
 
 def get_data():
     url = 'https://view.inews.qq.com/g2/getOnsInfo?name=disease_other'
@@ -105,15 +105,19 @@ def update_history():
         conn, cursor = get_conn()
         sql = "insert into history values(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
         sql_query = 'select %s=(select ds from history order by ds desc limit 1)'  # 对比当前最大时间戳
+        sql_old = 'select ds from history order by ds desc limit 1'  # 对比当前最大时间戳
+        cursor.execute(sql_old)
+        old_date = cursor.fetchone()
         for k in dic.keys():
             cursor.execute(sql_query, k)
         if not cursor.fetchone()[0]:
             print(f"{time.asctime()}开始更新数据")
             for k, v in dic.items():
-                cursor.execute(sql, [k, v.get("confirm"), v.get("confirm_add"), v.get("suspect"),
+                if datetime.date(*map(int, k.split('-'))) > old_date[0]:
+                    cursor.execute(sql, [k, v.get("confirm"), v.get("confirm_add"), v.get("suspect"),
                                      v.get("suspect_add"), v.get("heal"), v.get("heal_add"), v.get("dead"),
                                      v.get("dead_add"), v.get("now_confirm"), v.get("now_severe")])
-            conn.commit()
+                conn.commit()
             print(f"{time.asctime()}更新最新数据完毕")
         else:
             print(f"{time.asctime()}已是最新数据")
